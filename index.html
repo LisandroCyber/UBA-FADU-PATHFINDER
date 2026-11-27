@@ -122,7 +122,7 @@ const sp=s=>s&&s!="ALL"?s.split(","):[];
 const M=R.map(r=>({id:r[0],n:r[1],cbc:r[2],ct:sp(r[3]),cf:sp(r[4]),ff:r[5]=="ALL"?"ALL":sp(r[5]),nf:r[6]}));
 const by=Object.fromEntries(M.map(m=>[m.id,m]));
 const ids=M.map(m=>m.id);
-const LV=["1er nivel","2do nivel","3er nivel","4to nivel"];
+const LV=["1er año","2do año","3er año","4to año"];
 let S={cbc:false,s:{}},sel=null,flt="all";
 try{const x=JSON.parse(localStorage.getItem("paisaje-correlativas")||"null");if(x&&x.s)S=x}catch(e){}
 const save=()=>{try{localStorage.setItem("paisaje-correlativas",JSON.stringify(S))}catch(e){}};
@@ -160,7 +160,7 @@ function render(){
 function tags(l,f){return l.map(i=>'<button class="tag '+(f(i)?"y":"n")+'" data-go="'+i+'">'+(f(i)?"✓ ":"")+i+" "+by[i].n+"</button>").join("")}
 function panel(){
  const p=document.getElementById("panel");
- if(!sel){p.innerHTML='<h3>Elegí una materia</h3><p class="sub" style="margin:0">Vas a ver sus previas, a qué materias habilita y cómo marcarla.</p>';return}
+ if(!sel){p.innerHTML='<h3>Elegí una materia</h3><p class="sub" style="margin:0">Vas a ver sus requeridas, a qué materias habilita y cómo marcarla.</p>';return}
  const m=by[sel],s=st(sel);let h='<h3>'+m.id+" · "+m.n+"</h3>";
  const cur=s==2?"2":s==1?"1":pre(sel)?"pre":"0",a0=can(m)?"Habilitada":"Bloqueada";h+='<div class="row st">'+(m.nf?[["0",a0],["2","Aprobada"],["pre","Previa"]]:[["0",a0],["1","Cursada"],["2","Aprobada"],["pre","Previa"]]).map(([v,t])=>'<button data-set="'+v+'" aria-pressed="'+(cur==v)+'">'+t+"</button>").join("")+"</div>";
  if(m.ct.length)h+='<div class="row"><em>Cursar · aprobada de</em>'+tags(m.ct,i=>st(i)==2)+"</div>";
