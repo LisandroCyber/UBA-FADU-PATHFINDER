@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Correlativas Paisajismo · UBA FADU</title>
+<style>
+:root{--bg:#f4f6f1;--card:#fff;--ink:#1c2b22;--mut:#66736b;--line:#d5ddd3;--ok:#2d7a4d;--okb:#dff0e5;--cur:#2a64a8;--curb:#e0ecf9;--en:#a56a00;--enb:#fff2d6;--blk:#8d998f;--up:#c4541c;--dn:#2a64a8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121a15;--card:#1b261f;--ink:#e6eee8;--mut:#9aa89f;--line:#2f3e34;--ok:#6fcf93;--okb:#1d3a29;--cur:#7db4ee;--curb:#1b3049;--en:#f0b84a;--enb:#3b2f12;--blk:#6f7c73;--up:#f08a57;--dn:#7db4ee;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121a15;--card:#1b261f;--ink:#e6eee8;--mut:#9aa89f;--line:#2f3e34;--ok:#6fcf93;--okb:#1d3a29;--cur:#7db4ee;--curb:#1b3049;--en:#f0b84a;--enb:#3b2f12;--blk:#6f7c73;--up:#f08a57;--dn:#7db4ee;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:1200px;margin:0 auto;padding:20px 16px 40px}
+h1{font:600 clamp(26px,4vw,38px)/1.1 "Iowan Old Style",Palatino,Georgia,serif;margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--mut);margin:0 0 18px;max-width:62ch}
+.bar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:14px}
+.stats{display:flex;gap:18px;flex-wrap:wrap}
+.stats b{font:600 26px/1 "Iowan Old Style",Palatino,Georgia,serif;display:block}
+.stats span{font-size:12px;color:var(--mut)}
+.prog{flex:1 1 220px;height:8px;background:var(--line);border-radius:4px;overflow:hidden;display:flex}
+.prog i{display:block;height:100%}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+button{font:inherit;color:inherit;cursor:pointer}
+.chip,.btn{border:1px solid var(--line);background:var(--card);padding:6px 12px;border-radius:99px}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.s{border-radius:8px;padding:6px 10px;font-size:13px}
+label.cb{display:flex;gap:6px;align-items:center;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--cur);outline-offset:2px}
+.scroll{overflow-x:auto;padding-bottom:8px}
+.tree{position:relative;display:grid;grid-template-columns:repeat(4,minmax(210px,1fr));gap:34px;min-width:920px}
+svg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+.col{position:relative;z-index:1;display:flex;flex-direction:column;gap:8px}
+.col h2{font:600 15px/1 "Iowan Old Style",Palatino,Georgia,serif;margin:0 0 4px;padding-bottom:8px;border-bottom:2px solid var(--line)}
+.c{position:relative;cursor:pointer;text-align:left;background:var(--card);border:1.5px solid var(--line);border-left-width:5px;border-radius:8px;padding:7px 36px 7px 9px;display:block;width:100%;transition:opacity .15s}
+.k{position:absolute;top:6px;right:6px;width:24px;height:24px;padding:0;border-radius:6px;border:1.5px solid var(--blk);background:var(--card);display:grid;place-items:center;font-size:15px;line-height:1}
+.k[aria-pressed=true]{background:var(--ok);border-color:var(--ok)}
+.k[aria-pressed=true]::after{content:"✓";color:var(--bg);font-weight:700}
+.k:hover{border-color:var(--ok)}
+.c small{display:block;color:var(--mut);font-size:11px}
+.c span{display:block;font-size:13.5px;font-weight:500}
+.c.blk{border-left-color:var(--blk);color:var(--mut)}
+.c.en{border-left-color:var(--en);background:var(--enb)}
+.c.cur{border-left-color:var(--cur);background:var(--curb)}
+.c.ap{border-left-color:var(--ok);background:var(--okb)}
+.c.sel{outline:2.5px solid var(--ink);outline-offset:1px}
+.c.up{box-shadow:0 0 0 2.5px var(--up)}
+.c.dn{box-shadow:0 0 0 2.5px var(--dn)}
+.c.dim{opacity:.3}
+.panel{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:90px}
+.panel h3{font:600 20px/1.2 "Iowan Old Style",Palatino,Georgia,serif;margin:0 0 10px}
+.row{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;align-items:center}
+.row>em{font-style:normal;color:var(--mut);font-size:13px;min-width:170px}
+.tag{border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:13px;background:var(--bg)}
+.tag.y{border-color:var(--ok);color:var(--ok)}
+.tag.n{border-color:var(--up);color:var(--up)}
+.st button{border-radius:8px;border:1.5px solid var(--line);background:var(--bg);padding:6px 12px}
+.st button[aria-pressed=true]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--mut);margin:0 0 12px}
+.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.note{font-size:12.5px;color:var(--mut);margin-top:16px;max-width:80ch}
+:root{--apb:#b5dfc4;--apl:#2d7a4d;--hb:#ecf8f0;--hl:#8ccaa3;--yb:#fff5c2;--yl:#d6b82e;--pb:#fbdddb;--pl:#d9776f;--bb:#ebe4e3;--bl:#aa9b9c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--apb:#25503a;--apl:#6fcf93;--hb:#1b3126;--hl:#4b8a64;--yb:#3a3411;--yl:#c9a93a;--pb:#4a2422;--pl:#d9706a;--bb:#2b2425;--bl:#7d6d6e}}
+:root[data-theme="dark"]{--apb:#25503a;--apl:#6fcf93;--hb:#1b3126;--hl:#4b8a64;--yb:#3a3411;--yl:#c9a93a;--pb:#4a2422;--pl:#d9706a;--bb:#2b2425;--bl:#7d6d6e}
+.c{padding:7px 9px}
+.c small{padding-right:30px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.k{display:grid;place-items:center;width:24px;height:24px;padding:0;font-size:15px;line-height:1;border-radius:6px;border:1.5px solid var(--blk);background:var(--card);color:var(--ink);top:6px;right:6px}
+.k:hover{border-color:var(--ink)}
+.c.ap{border-color:var(--apl);background:var(--apb)}
+.c.en{border-color:var(--hl);background:var(--hb)}
+.c.cur{border-color:var(--yl);background:var(--yb)}
+.c.pre{border-color:var(--pl);background:var(--pb)}
+.c.blk{border-color:var(--bl);background:var(--bb);color:var(--mut)}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>Correlativas de Planificación y Diseño del Paisaje</h1>
+<p class="sub">Marcá lo que ya hiciste. Tocá una materia para ver qué necesita, qué habilita y qué te falta para llegar a ella.</p>
+<div class="bar">
+ <div class="stats"><div><b id="nA">0</b><span>aprobadas</span></div><div><b id="nC">0</b><span>cursadas, sin final</span></div><div><b id="nE">0</b><span>habilitadas para cursar</span></div></div>
+ <div class="prog" id="prog" title="Avance"></div>
+ 
+</div>
+<div class="bar">
+ <div class="chips" id="chips"></div>
+ <button class="btn s" id="reset">Borrar todo</button>
+</div>
+<p class="leg"><span><i style="background:var(--apb);border:1.5px solid var(--apl)"></i>Aprobada</span><span><i style="background:var(--yb);border:1.5px solid var(--yl)"></i>Cursada</span><span><i style="background:var(--hb);border:1.5px solid var(--hl)"></i>Habilitada para cursar</span><span><i style="background:var(--pb);border:1.5px solid var(--pl)"></i>Previa</span><span><i style="background:var(--bb);border:1.5px solid var(--bl)"></i>Bloqueada</span><span><i style="background:var(--up)"></i>Línea: lo que necesita</span><span><i style="background:var(--dn)"></i>Línea: lo que habilita</span></p>
+<div class="scroll"><div class="tree" id="tree"><svg id="svg"></svg></div></div>
+<div class="panel" id="panel"></div>
+<p class="note">“Cursada” significa T.P. aprobado; “aprobada” significa final aprobado. “Previa” es una marca tuya: no cuenta como cursada ni aprobada. Las materias de taller y las optativas se aprueban directamente. Para rendir un final hace falta tener la cursada de esa materia más los finales indicados en el cuadro. El trabajo final exige el resto de la carrera aprobada y las optativas II, todas las demás. Datos transcritos del cuadro oficial de correlatividades (el cuadro no incluye una materia 4.4).</p>
+</div>
+<script>
+const R=[
+["1.1","Planif. y Diseño del Paisaje I",1,"","","",1],["1.2","Sistemas de Rep. Geométrica",1,"","","",1],["1.3","Química General",1,"","","",0],["1.4","Botánica General",1,"","","",0],["1.5","Física Aplicada",1,"","","",0],["1.6","Vegetación I",1,"","1.4","1.4",0],["1.7","Química Biológica",1,"","","",0],["1.8","Material. Elem. y Proced. de Constr.",1,"","","",0],["1.9","Botánica Sistemática",0,"","1.4","1.4",0],
+["2.1","Planif. y Dis. del Paisaje II",0,"","1.1,1.2,1.6","",1],["2.2","Morfología y Comunicación I",0,"","1.2","",1],["2.3","Vegetación II",0,"","1.6","1.4,1.6",0],["2.4","Fisiología Vegetal",0,"","1.4,1.7","1.4,1.7",0],["2.5","Edafología",0,"","1.7","1.7",0],["2.6","Climatología y Fenología",0,"","1.9","1.9",0],["2.7","Topografía",0,"","1.2","1.2",0],["2.8","Instalaciones y Equipamientos",0,"","1.5,1.8","1.5,1.8",0],
+["3.1","Planif. y Dis. del Paisaje III",0,"","2.1,2.2","",1],["3.2","Morfología y Comunicación II",0,"","1.1,2.2","",1],["3.3","Historia de la Arq. Paisajista I",0,"","1.1","1.1",0],["3.4","Geografía",0,"","2.1","2.1",0],["3.5","Ecología",0,"","1.9,2.4,2.5,2.6","1.9,2.4,2.5,2.6",0],["3.6","Fitogeografía",0,"","1.9,2.6,2.7","1.9,2.6,2.7",0],["3.7","Manejo del Suelo y la Vegetación",0,"","2.3,2.4,2.6,2.7,2.8","2.3,2.4,2.6,2.7,2.8",0],["3.8","MO: Materias optativas I",0,"","","",1],
+["4.1","Planif. y Dis. de Paisaje IV",0,"","3.1,3.2","",1],["4.2","Historia de la Arq. Paisajista II",0,"3.3","3.1","3.3",0],["4.3","Planeamiento Urbano y Regional",0,"","3.1,3.2,3.4","3.4",0],["4.5","Trabajo Final o de Intensificación",0,"","3.1,3.2,4.7","ALL",0],["4.6","Práctica Profesional",0,"","3.1,3.7","3.1,3.7",0],["4.7","Ecología del Paisaje",0,"","3.5,3.6","3.5,3.6",0],["4.8","MO: Materias optativas II",0,"3.1,3.2,4.7","","ALL",0]];
+const sp=s=>s&&s!="ALL"?s.split(","):[];
+const M=R.map(r=>({id:r[0],n:r[1],cbc:r[2],ct:sp(r[3]),cf:sp(r[4]),ff:r[5]=="ALL"?"ALL":sp(r[5]),nf:r[6]}));
+const by=Object.fromEntries(M.map(m=>[m.id,m]));
+const ids=M.map(m=>m.id);
+const LV=["1er nivel","2do nivel","3er nivel","4to nivel"];
+let S={cbc:false,s:{}},sel=null,flt="all";
+try{const x=JSON.parse(localStorage.getItem("paisaje-correlativas")||"null");if(x&&x.s)S=x}catch(e){}
+const save=()=>{try{localStorage.setItem("paisaje-correlativas",JSON.stringify(S))}catch(e){}};
+const st=i=>S.s[i]||0;const pre=i=>!!(S.p&&S.p[i]);
+const ffl=m=>m.ff=="ALL"?ids.filter(i=>i!=m.id&&!(m.id=="4.8"&&i=="4.5")):m.ff;
+const cbcOk=m=>true;
+const can=m=>cbcOk(m)&&[...m.ct,...m.cf].every(i=>st(i)==2);
+const finOk=m=>st(m.id)==1&&ffl(m).every(i=>st(i)==2);
+const deps=m=>[...new Set([...m.ct,...m.cf,...(m.ff=="ALL"?[]:m.ff)])];
+function anc(i,o=new Set){deps(by[i]).forEach(d=>{if(!o.has(d)){o.add(d);anc(d,o)}});return o}
+function desc(i){const o=new Set(),q=[i];while(q.length){const x=q.pop();M.forEach(m=>{if(!o.has(m.id)&&deps(m).includes(x)){o.add(m.id);q.push(m.id)}})}return o}
+function miss(i,o=new Set()){const m=by[i];m.ct.forEach(d=>{if(st(d)<2&&!o.has(d)){o.add(d);miss(d,o)}});m.cf.forEach(d=>{if(st(d)<2&&!o.has(d)){o.add(d);miss(d,o)}});return o}
+const cls=m=>st(m.id)==2?"ap":st(m.id)==1?"cur":pre(m.id)?"pre":can(m)?"en":"blk";
+const tree=document.getElementById("tree"),svg=document.getElementById("svg");
+LV.forEach((l,k)=>{const c=document.createElement("div");c.className="col";c.innerHTML="<h2>"+l+"</h2>"+M.filter(m=>m.id[0]==k+1).map(m=>'<div class="c" data-id="'+m.id+'" tabindex="0" role="button"><small>'+m.id+'</small><span>'+m.n+'</span><button class="k" data-chk="'+m.id+'" title="Marcar como aprobada" aria-label="Marcar '+m.id+' como aprobada"></button></div>').join("");tree.appendChild(c)});
+const chips=document.getElementById("chips");
+[["all","Todas"],["en","Habilitadas para cursar"],["pend","Pendientes"],["ap","Aprobadas"]].forEach(([k,t])=>{const b=document.createElement("button");b.className="chip";b.textContent=t;b.dataset.k=k;chips.appendChild(b)});
+const setSt=(i,v,p)=>{S.p=S.p||{};delete S.p[i];if(p)S.p[i]=1;S.s[i]=v;if(!v)delete S.s[i]};
+function render(){
+ const U=sel?anc(sel):null,D=sel?desc(sel):null;
+ let a=0,c=0,e=0;
+ M.forEach(m=>{const s=st(m.id);if(s==2)a++;else if(s==1)c++;else if(can(m))e++;
+  const el=tree.querySelector('[data-id="'+m.id+'"]'),k=cls(m);
+  el.className="c "+k+(sel==m.id?" sel":"")+(U&&U.has(m.id)?" up":"")+(D&&D.has(m.id)?" dn":"");
+  const rel=!sel||sel==m.id||U.has(m.id)||D.has(m.id);
+  const ok=flt=="all"||(flt=="en"&&s==0&&can(m))||(flt=="pend"&&s<2)||(flt=="ap"&&s==2);
+  if(!rel||!ok)el.classList.add("dim");
+  el.querySelector(".k").setAttribute("aria-pressed",s==2);
+  const fin=finOk(m);el.querySelector("small").textContent=m.id+(fin?" · final habilitado":"");});
+ nA.textContent=a;nC.textContent=c;nE.textContent=e;
+ document.getElementById("prog").innerHTML='<i style="width:'+a/M.length*100+'%;background:var(--ok)"></i><i style="width:'+c/M.length*100+'%;background:var(--cur)"></i>';
+ chips.querySelectorAll(".chip").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k==flt));
+ panel();edges();save();
+}
+function tags(l,f){return l.map(i=>'<button class="tag '+(f(i)?"y":"n")+'" data-go="'+i+'">'+(f(i)?"✓ ":"")+i+" "+by[i].n+"</button>").join("")}
+function panel(){
+ const p=document.getElementById("panel");
+ if(!sel){p.innerHTML='<h3>Elegí una materia</h3><p class="sub" style="margin:0">Vas a ver sus previas, a qué materias habilita y cómo marcarla.</p>';return}
+ const m=by[sel],s=st(sel);let h='<h3>'+m.id+" · "+m.n+"</h3>";
+ const cur=s==2?"2":s==1?"1":pre(sel)?"pre":"0",a0=can(m)?"Habilitada":"Bloqueada";h+='<div class="row st">'+(m.nf?[["0",a0],["2","Aprobada"],["pre","Previa"]]:[["0",a0],["1","Cursada"],["2","Aprobada"],["pre","Previa"]]).map(([v,t])=>'<button data-set="'+v+'" aria-pressed="'+(cur==v)+'">'+t+"</button>").join("")+"</div>";
+ if(m.ct.length)h+='<div class="row"><em>Cursar · aprobada de</em>'+tags(m.ct,i=>st(i)==2)+"</div>";
+ if(m.cf.length)h+='<div class="row"><em>Cursar · final aprobado de</em>'+tags(m.cf,i=>st(i)==2)+"</div>";
+ if(!m.nf){const f=ffl(m);h+='<div class="row"><em>Rendir final · finales de</em>'+(f.length?(m.ff=="ALL"?'<span class="tag '+(f.every(i=>st(i)==2)?"y":"n")+'">el resto de la carrera aprobada ('+f.filter(i=>st(i)==2).length+"/"+f.length+")</span>":tags(f,i=>st(i)==2)):'<span class="tag y">sin finales previos</span>')+"</div>"}
+ const ms=[...miss(sel)].sort(),cb=false;
+ h+='<div class="row"><em>Te falta para cursarla</em>'+(ms.length||cb?(cb?'<span class="tag n">CBC</span>':"")+tags(ms,()=>false):'<span class="tag y">nada: ya podés cursarla</span>')+"</div>";
+ const dd=[...desc(sel)].sort();
+ h+='<div class="row"><em>Habilita a</em>'+(dd.length?tags(dd,i=>st(i)==2):'<span class="tag">ninguna materia</span>')+"</div>";
+ h+='<div class="row"><button class="btn s" data-prev>Marcar todas las previas como aprobadas</button></div>';
+ p.innerHTML=h;
+}
+function edges(){
+ const t=tree.getBoundingClientRect();svg.setAttribute("width",tree.scrollWidth);svg.setAttribute("height",tree.scrollHeight);
+ if(!sel){svg.innerHTML="";return}
+ const U=anc(sel),D=desc(sel);U.add(sel);D.add(sel);let o="";
+ const pt=i=>{const r=tree.querySelector('[data-id="'+i+'"]').getBoundingClientRect();return{l:r.left-t.left,r:r.right-t.left,y:r.top-t.top+r.height/2}};
+ M.forEach(m=>deps(m).forEach(d=>{
+  const up=U.has(m.id)&&U.has(d),dn=D.has(m.id)&&D.has(d);if(!up&&!dn)return;
+  const a=pt(d),b=pt(m.id);let path;
+  if(Math.abs(a.l-b.l)<5)path="M"+a.r+","+a.y+" C"+(a.r+36)+","+a.y+" "+(b.r+36)+","+b.y+" "+b.r+","+b.y;
+  else{const dx=Math.max(30,Math.abs(b.l-a.r)/2);path="M"+a.r+","+a.y+" C"+(a.r+dx)+","+a.y+" "+(b.l-dx)+","+b.y+" "+b.l+","+b.y}
+  o+='<path d="'+path+'" fill="none" stroke="var(--'+(up?"up":"dn")+')" stroke-width="2" opacity=".85"/>'}));
+ svg.innerHTML=o;
+}
+document.addEventListener("click",e=>{
+ const k=e.target.closest("[data-chk]"),c=e.target.closest(".c"),g=e.target.closest("[data-go]"),s=e.target.closest("[data-set]"),ch=e.target.closest(".chip");
+ if(k){const i=k.dataset.chk;setSt(i,st(i)==2?0:2)}
+ else if(c)sel=sel==c.dataset.id?null:c.dataset.id;
+ else if(g)sel=g.dataset.go;
+ else if(s){const v=s.dataset.set;setSt(sel,v=="pre"?0:+v,v=="pre")}
+ else if(e.target.closest("[data-prev]")){anc(sel).forEach(i=>setSt(i,2))}
+ else if(ch)flt=ch.dataset.k;
+ else if(e.target.id=="reset"){if(confirm("¿Borrar todo tu avance?")){S={cbc:false,s:{}};sel=null}else return}
+ else return;
+ render();
+});
+document.addEventListener("keydown",e=>{if((e.key=="Enter"||e.key==" ")&&e.target.classList.contains("c")){e.preventDefault();e.target.click()}});
+addEventListener("resize",edges);
+render();
+</script>
+</body>
+</html>
