@@ -40,7 +40,7 @@ function render(){
  nA.textContent=a;nC.textContent=c;nE.textContent=e;document.getElementById("pct").textContent=Math.round(a/M.length*100)+"% aprobado";
  document.getElementById("prog").innerHTML='<i style="width:'+a/M.length*100+'%;background:var(--ok)"></i><i style="width:'+c/M.length*100+'%;background:var(--cur)"></i>';
  chips.querySelectorAll(".chip").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k==flt));
- panel();edges();save();
+ panel();edges();check();save();
 }
 function tags(l,f){return l.map(i=>'<button class="tag '+(f(i)?"y":"n")+'" data-go="'+i+'">'+(f(i)?"✓ ":"")+i+" "+by[i].n+"</button>").join("")}
 function panel(){
@@ -78,7 +78,7 @@ document.addEventListener("click",e=>{
  else if(g)sel=g.dataset.go;
  else if(s){const v=s.dataset.set;setSt(sel,v=="pre"?0:+v,v=="pre")}
  else if(e.target.closest("[data-prev]")){anc(sel).forEach(i=>setSt(i,2))}
- else if(ch)flt=ch.dataset.k;
+ else if(ch){flt=ch.dataset.k;award("filtros")}
  else return;
  render();
 });
@@ -120,6 +120,29 @@ $("orng").oninput=e=>{ora.n=+e.target.value;oracle()};
 $("oseg").addEventListener("click",e=>{const b=e.target.closest("[data-u]");if(b)oset(b.dataset.u)});
 document.addEventListener("keydown",e=>{if(e.key=="Escape")$("ob").hidden=true});
 oset("c");
+const ACH=[
+{id:"pasos",i:"👣",n:"Primeros pasos",d:"Aprobá tu primera materia."},
+{id:"a1",i:"🌱",n:"Primer año completo",d:"Aprobá todas las materias de 1er año."},
+{id:"a2",i:"🌿",n:"Segundo año completo",d:"Aprobá todas las materias de 2do año."},
+{id:"a3",i:"🌳",n:"Tercer año completo",d:"Aprobá todas las materias de 3er año."},
+{id:"a4",i:"🎓",n:"Cuarto año completo",d:"Aprobá todas las materias de 4to año."},
+{id:"filtros",i:"🧭",n:"Explorar configuraciones",d:"Usá los filtros de materias."},
+{id:"oficial",i:"📄",n:"Información oficial",d:"Visitá el plan de estudio oficial."},
+{id:"profecia",i:"🔮",n:"La profecía",d:"Consultá el Oráculo."},
+{id:"creditos",i:"❤️",n:"Créditos y agradecimientos",d:"Visitá el LinkedIn del desarrollador."}];
+const AI=Object.fromEntries(ACH.map(a=>[a.id,a])),tq=[];
+let first=true,tb=false;
+function toast(t){tq.push(t);if(!tb)nt()}
+function nt(){const t=tq.shift();if(!t){tb=false;return}tb=true;const e=$("toast");e.textContent=t;e.hidden=false;setTimeout(()=>{e.hidden=true;setTimeout(nt,250)},3200)}
+function achUI(){const n=ACH.filter(a=>S.a&&S.a[a.id]).length;$("achBtn").textContent="🏆 Logros "+n+"/"+ACH.length;$("apr").textContent="Desbloqueados: "+n+" de "+ACH.length;$("alist").innerHTML=ACH.map(a=>'<div class="ach'+(S.a&&S.a[a.id]?" on":"")+'"><span class="ai">'+a.i+'</span><div><b>'+a.n+'</b><small>'+a.d+'</small></div></div>').join("")}
+function award(id,q){if(!S.a)S.a={};if(S.a[id])return;S.a[id]=Date.now();if(!q)toast("🏆 Logro desbloqueado: "+AI[id].n);achUI();save()}
+function check(){const q=first;first=false;if(M.some(m=>st(m.id)==2))award("pasos",q);[1,2,3,4].forEach(k=>{if(M.filter(m=>m.id[0]==k).every(m=>st(m.id)==2))award("a"+k,q)});achUI()}
+$("achBtn").onclick=()=>{achUI();$("ab").hidden=false;$("ax").focus()};
+$("ax").onclick=()=>{$("ab").hidden=true};
+$("ab").addEventListener("click",e=>{if(e.target==$("ab"))$("ab").hidden=true});
+document.addEventListener("keydown",e=>{if(e.key=="Escape")$("ab").hidden=true});
+$("orBtn").addEventListener("click",()=>award("profecia"));
+["click","auxclick"].forEach(v=>{$("planBtn").addEventListener(v,()=>award("oficial"));document.querySelector(".fr a").addEventListener(v,()=>award("creditos"))});
 
 
 

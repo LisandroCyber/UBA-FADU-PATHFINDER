@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="w">
-<div class="top"><h1>Planificación y Diseño del Paisaje</h1><a class="btn s" href="https://www.fadu.uba.ar/lic-en-planificacion-y-diseno-del-paisaje/" target="_blank" rel="noopener noreferrer">📄 Plan de estudio oficial</a></div>
+<div class="top"><h1>Planificación y Diseño del Paisaje</h1><div class="tr"><button class="btn s" id="achBtn">🏆 Logros</button><button class="btn s" id="orBtn">🔮 Oráculo</button><a class="btn s" id="planBtn" href="https://www.fadu.uba.ar/lic-en-planificacion-y-diseno-del-paisaje/" target="_blank" rel="noopener noreferrer">📄 Plan de estudio oficial</a></div></div>
 <p class="sub">Marcá lo que ya hiciste. Tocá una materia para ver qué necesita, qué habilita y qué te falta para llegar a ella.</p>
 <div class="bar">
  <div class="stats"><div><b id="nA">0</b><span>aprobadas</span></div><div><b id="nC">0</b><span>cursadas, sin final</span></div><div><b id="nE">0</b><span>habilitadas para cursar</span></div></div>
@@ -17,7 +17,7 @@
 </div>
 <div class="bar">
  <div class="chips" id="chips"></div>
- <button class="btn s" id="orBtn">🔮 Oráculo</button>
+ 
 </div>
 <p class="leg"><span><i style="background:var(--apb);border:1.5px solid var(--apl)"></i>Aprobada</span><span><i style="background:var(--yb);border:1.5px solid var(--yl)"></i>Cursada</span><span><i style="background:var(--hb);border:1.5px solid var(--hl)"></i>Habilitada para cursar</span><span><i style="background:var(--pb);border:1.5px solid var(--pl)"></i>Previa</span><span><i style="background:var(--bb);border:1.5px solid var(--bl)"></i>Bloqueada</span></p>
 <div class="scroll"><div class="tree" id="tree"><svg id="svg"></svg></div></div>
@@ -26,6 +26,8 @@
 <p class="note">“Cursada” significa T.P. aprobado; “aprobada” significa final aprobado. “Previa” es una marca tuya: no cuenta como cursada ni aprobada. Las materias de taller y las optativas se aprueban directamente. Para rendir un final hace falta tener la cursada de esa materia más los finales indicados en el cuadro. El trabajo final exige el resto de la carrera aprobada y las optativas II, todas las demás. Datos transcritos del cuadro oficial de correlatividades (el cuadro no incluye una materia 4.4).</p>
 </div>
 <footer class="foot"><div class="fin"><div class="fl"><h2 id="mt">🎓 UBA-FADU Pathfinder</h2><p>Herramienta interactiva diseñada para planificar.</p><p>De un estudiante para otros estudiantes.</p></div><div class="fc"><p>© 2026 - Derechos reservados - Hecho con <span class="hrt">❤️</span></p></div><div class="fr"><b>DESARROLLADO POR:</b><a href="https://www.linkedin.com/in/lisandroromero/" target="_blank" rel="noopener noreferrer">Lisandro Romero</a></div></div></footer>
+<div class="ob" id="ab" hidden><div class="om" role="dialog" aria-modal="true" aria-labelledby="at"><div class="oh"><h2 id="at">🏆 Logros</h2><button class="ox" id="ax" aria-label="Cerrar">×</button></div><div class="obd" style="text-align:left"><p class="op" id="apr" style="text-align:center"></p><div id="alist"></div></div></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <div class="ob" id="ob" hidden><div class="om" role="dialog" aria-modal="true" aria-labelledby="ot"><div class="oh"><h2 id="ot">🔮 Oráculo Académico</h2><button class="ox" id="ox" aria-label="Cerrar">×</button></div><div class="obd"><p class="op" id="opr"></p><div class="seg" id="oseg"><button data-u="c" aria-pressed="true">Por cuatrimestre</button><button data-u="a" aria-pressed="false">Por año</button></div><p class="ol"><span id="olbl">Materias por cuatrimestre</span> <span class="bdg" id="obdg">3</span></p><input type="range" id="orng" min="1" max="6" value="3" aria-label="Cantidad de materias"><div class="ors"><span id="omin">RELAX (1)</span><span id="omax">TRYHARD (6)</span></div><div class="res"><p>Te recibirías en:</p><div class="big" id="obig"></div><p id="osm"></p></div><details class="plan"><summary>Ver plan sugerido</summary><div id="opl"></div></details><p class="onote">Estimación: supone que cada materia se cursa y se aprueba en el mismo cuatrimestre, que el 1er cuatrimestre empieza en marzo y el 2do en agosto, y que se respetan las correlativas. Cada cuatrimestre prioriza las materias que destraban más a las siguientes.</p></div></div></div>
 <script src="script.js"></script>
 </body>
