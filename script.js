@@ -79,7 +79,6 @@ document.addEventListener("click",e=>{
  else if(s){const v=s.dataset.set;setSt(sel,v=="pre"?0:+v,v=="pre")}
  else if(e.target.closest("[data-prev]")){anc(sel).forEach(i=>setSt(i,2))}
  else if(ch)flt=ch.dataset.k;
- else if(e.target.id=="reset"){if(confirm("¿Borrar todo tu avance?")){S={cbc:false,s:{}};sel=null}else return}
  else return;
  render();
 });
