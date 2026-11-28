@@ -4,7 +4,7 @@ Herramienta interactiva para planificar la carrera de **Planificación y Diseño
 
 **De un estudiante para otros estudiantes.**
 
-🔗 **Sitio:** https://TU-SITIO.vercel.app
+🔗 **Sitio:** https://fadu-pathfinder.vercel.app
 
 > Proyecto no oficial, hecho por estudiantes. Los datos salen del cuadro de correlatividades de la carrera; ante cualquier duda, consultá siempre la información oficial de la facultad.
 
@@ -44,32 +44,6 @@ Es una estimación para planificar, no una fecha garantizada.
 ```
 
 Es un sitio estático: no usa frameworks ni dependencias, solo HTML, CSS y JavaScript.
-
-## 💻 Probarlo en tu computadora
-
-1. Cloná el repositorio:
-   ```bash
-   git clone https://github.com/LisandroCyber/UBA-FADU-PATHFINDER.git
-   cd UBA-FADU-PATHFINDER
-   ```
-2. Abrí `index.html` con tu navegador (doble clic), o levantá un servidor local:
-   ```bash
-   npx serve
-   ```
-
-## 🚀 Publicarlo
-
-Funciona en cualquier hosting de sitios estáticos (Vercel, GitHub Pages, Netlify). En Vercel alcanza con importar el repositorio y dejar la configuración por defecto: cada `git push` a `main` actualiza el sitio.
-
-## 🛠️ Mantener las materias
-
-Las materias y sus correlativas están en `script.js`, en la lista `R`. Cada fila tiene este formato:
-
-```js
-["id", "Nombre", cbc, "cursar T.P.", "cursar final", "para final", sinFinal]
-```
-
-Por ejemplo, `["2.3","Vegetación II",0,"","1.6","1.4,1.6",0]` indica que para cursarla hace falta el final de 1.6 y que, para rendir su final, hacen falta los finales de 1.4 y 1.6.
 
 ## 🤝 Contribuir
 
