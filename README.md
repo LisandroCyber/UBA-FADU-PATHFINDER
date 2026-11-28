@@ -37,12 +37,12 @@ Es una estimación para planificar, no una fecha garantizada.
 
 ## 🗂️ Estructura
 
-\`\`\`
+```
 ├── index.html   # estructura de la página
 ├── style.css    # estilos
 ├── script.js    # lógica: materias, correlativas, Oráculo, logros y guardado
 └── README.md
-\`\`\`
+```
 
 Es un sitio estático: no usa frameworks ni dependencias, solo HTML, CSS y JavaScript.
 
