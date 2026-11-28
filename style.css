@@ -50,6 +50,10 @@ svg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
 .st button{border-radius:8px;border:1.5px solid var(--line);background:var(--bg);padding:6px 12px}
 .st button[aria-pressed=true]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
 .leg{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--mut);margin:0 0 12px}
+.leg span{white-space:nowrap}
+a.btn{display:inline-block;text-decoration:none;color:inherit}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px 16px;flex-wrap:wrap}
+.top a{white-space:nowrap;margin-left:auto}
 .leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 .note{font-size:12.5px;color:var(--mut);margin-top:16px;max-width:80ch}
 .ob{position:fixed;inset:0;z-index:10;display:grid;place-items:center;background:rgba(0,0,0,.55);padding:max(16px,env(safe-area-inset-top,0px)) 16px max(16px,env(safe-area-inset-bottom,0px))}
